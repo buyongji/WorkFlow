@@ -23,8 +23,25 @@ namespace BU.BOS
        #endregion
 
        #region Properties
+        public string Alias
+        {
+            get
+            {
+                if (this._alias == null)
+                {
+                    //return CultureInfoUtils.GetLanguageNameAlias(this.LocaleId);
+                }
+                return this._alias;
+            }
+            set
+            {
+                this._alias = value;
+            }
+        }
 
+        public int LocaleId { get; set; }
 
+        public string LocaleName { get; set; }
 
        #endregion
    }
