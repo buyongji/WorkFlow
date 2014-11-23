@@ -1,0 +1,5 @@
+F:\Study\11Github\WorkFlow\CodeTest\ClassLibraryTest\bin\Debug\ClassLibraryTest.dll
+F:\Study\11Github\WorkFlow\CodeTest\ClassLibraryTest\bin\Debug\ClassLibraryTest.pdb
+F:\Study\11Github\WorkFlow\CodeTest\ClassLibraryTest\obj\Debug\ClassLibraryTest.csprojResolveAssemblyReference.cache
+F:\Study\11Github\WorkFlow\CodeTest\ClassLibraryTest\obj\Debug\ClassLibraryTest.dll
+F:\Study\11Github\WorkFlow\CodeTest\ClassLibraryTest\obj\Debug\ClassLibraryTest.pdb

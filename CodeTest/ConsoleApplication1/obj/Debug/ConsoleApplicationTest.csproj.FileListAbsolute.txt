@@ -1,0 +1,5 @@
+F:\Study\11Github\WorkFlow\CodeTest\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+F:\Study\11Github\WorkFlow\CodeTest\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+F:\Study\11Github\WorkFlow\CodeTest\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+F:\Study\11Github\WorkFlow\CodeTest\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+F:\Study\11Github\WorkFlow\CodeTest\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
