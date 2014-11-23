@@ -1,0 +1,5 @@
+F:\Study\11Github\WorkFlow\CodeTest\BU.BOS.DataEntity\obj\Debug\BU.BOS.DataEntity.csprojResolveAssemblyReference.cache
+F:\Study\11Github\WorkFlow\CodeTest\BU.BOS.DataEntity\bin\Debug\BU.BOS.DataEntity.dll
+F:\Study\11Github\WorkFlow\CodeTest\BU.BOS.DataEntity\bin\Debug\BU.BOS.DataEntity.pdb
+F:\Study\11Github\WorkFlow\CodeTest\BU.BOS.DataEntity\obj\Debug\BU.BOS.DataEntity.dll
+F:\Study\11Github\WorkFlow\CodeTest\BU.BOS.DataEntity\obj\Debug\BU.BOS.DataEntity.pdb

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BU.BOS.Util
+namespace BU.BOS.Orm.DataEntity
 {
-    public class Class1
+    public interface IDataEntityBase
     {
+       
     }
 }
