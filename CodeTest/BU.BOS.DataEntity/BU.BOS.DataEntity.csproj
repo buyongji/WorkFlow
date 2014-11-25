@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Orm\DataEntity\DataEntityBase.cs" />
+    <Compile Include="Orm\DataEntity\DbIgnoreAttribute.cs" />
     <Compile Include="Orm\DataEntity\DynamicObject.cs" />
     <Compile Include="Orm\DataEntity\IDataEntityBase.cs" />
     <Compile Include="Orm\DataEntity\IDataStorage.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Orm\Metadata\DataEntity\DataEntityCacheType.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DataEntityTypeFlag.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DbIgnoreAttribute.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DbIgnoreAttribute_2.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicMetadata.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicObjectType.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicProperty.cs" />

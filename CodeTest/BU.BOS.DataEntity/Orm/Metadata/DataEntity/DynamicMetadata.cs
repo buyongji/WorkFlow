@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using BU.BOS.Orm.DataEntity;
 
 namespace BU.BOS.Orm.Metadata.DataEntity
 {
     [Serializable]
-    public abstract class DynamicMetadata : IMetadata, ICustomAttributeProvider
+    public abstract class DynamicMetadata : IMetadata, ICustomAttributeProvider, IIsDefinedDbIgnoreAttribute
     {
         #region Fields
         [NonSerialized]
@@ -79,7 +80,7 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             }
             return false;
         }
-        bool IIsDefinedDbIgnoreAttribute.IsDefinedDbIgnoreAttribute()
+        public bool IsDefinedDbIgnoreAttribute()
         {
             if (!this._isDefinedDbIgnoreAttribute.HasValue)
             {
