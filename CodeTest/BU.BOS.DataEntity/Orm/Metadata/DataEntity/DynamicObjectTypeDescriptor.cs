@@ -23,120 +23,121 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             this._atts = CreateAttributes(dt);
             this._properties = CreatePropertyDescriptorCollection(dt);
         }
-         private static AttributeCollection CreateAttributes(DynamicObjectType dt)
-    {
-        object[] customAttributes = dt.GetCustomAttributes(true);
-        if ((customAttributes == null) || (customAttributes.Length <= 0))
+        private static AttributeCollection CreateAttributes(DynamicObjectType dt)
         {
-            return AttributeCollection.Empty;
+            object[] customAttributes = dt.GetCustomAttributes(true);
+            if ((customAttributes == null) || (customAttributes.Length <= 0))
+            {
+                return AttributeCollection.Empty;
+            }
+            Attribute[] attributes = new Attribute[customAttributes.Length];
+            for (int i = 0; i < customAttributes.Length; i++)
+            {
+                attributes[i] = (Attribute)customAttributes[i];
+            }
+            return new AttributeCollection(attributes);
         }
-        Attribute[] attributes = new Attribute[customAttributes.Length];
-        for (int i = 0; i < customAttributes.Length; i++)
+
+        private static PropertyDescriptorCollection CreatePropertyDescriptorCollection(DynamicObjectType dt)
         {
-            attributes[i] = (Attribute) customAttributes[i];
+            DynamicPropertyCollection properties = dt.Properties;
+            PropertyDescriptor[] descriptorArray = new PropertyDescriptor[properties.Count];
+            for (int i = 0; i < properties.Count; i++)
+            {
+                descriptorArray[i] = properties[i].PropertyDescriptor;
+            }
+            return new PropertyDescriptorCollection(descriptorArray);
         }
-        return new AttributeCollection(attributes);
-    }
 
-    private static PropertyDescriptorCollection CreatePropertyDescriptorCollection(DynamicObjectType dt)
-    {
-        DynamicPropertyCollection properties = dt.Properties;
-        PropertyDescriptor[] descriptorArray = new PropertyDescriptor[properties.Count];
-        for (int i = 0; i < properties.Count; i++)
+        public AttributeCollection GetAttributes()
         {
-            descriptorArray[i] = properties[i].PropertyDescriptor;
+            return this._atts;
         }
-        return new PropertyDescriptorCollection(descriptorArray);
-    }
 
-    public AttributeCollection GetAttributes()
-    {
-        return this._atts;
-    }
-
-    public string GetClassName()
-    {
-        return this._dt.Name;
-    }
-
-    public string GetComponentName()
-    {
-        return this._dt.Name;
-    }
-
-    public TypeConverter GetConverter()
-    {
-        if (this._parent != null)
+        public string GetClassName()
         {
-            return this._parent.GetConverter();
+            return this._dt.Name;
         }
-        return new TypeConverter();
-    }
 
-    public EventDescriptor GetDefaultEvent()
-    {
-        if (this._parent != null)
+        public string GetComponentName()
         {
-            return this._parent.GetDefaultEvent();
+            return this._dt.Name;
         }
-        return null;
-    }
 
-    public PropertyDescriptor GetDefaultProperty()
-    {
-        PropertyDescriptor descriptor = this._properties.Find("Name", true);
-        if (descriptor != null)
+        public TypeConverter GetConverter()
         {
-            return descriptor;
+            if (this._parent != null)
+            {
+                return this._parent.GetConverter();
+            }
+            return new TypeConverter();
         }
-        if (this._parent != null)
+
+        public EventDescriptor GetDefaultEvent()
         {
-            return this._parent.GetDefaultProperty();
+            if (this._parent != null)
+            {
+                return this._parent.GetDefaultEvent();
+            }
+            return null;
         }
-        return null;
-    }
 
-    public object GetEditor(Type editorBaseType)
-    {
-        if (this._parent != null)
+        public PropertyDescriptor GetDefaultProperty()
         {
-            return this._parent.GetEditor(editorBaseType);
+            PropertyDescriptor descriptor = this._properties.Find("Name", true);
+            if (descriptor != null)
+            {
+                return descriptor;
+            }
+            if (this._parent != null)
+            {
+                return this._parent.GetDefaultProperty();
+            }
+            return null;
         }
-        return null;
-    }
 
-    public EventDescriptorCollection GetEvents(Attribute[] attributes)
-    {
-        if (this._parent != null)
+        public object GetEditor(Type editorBaseType)
         {
-            return this._parent.GetEvents(attributes);
+            if (this._parent != null)
+            {
+                return this._parent.GetEditor(editorBaseType);
+            }
+            return null;
         }
-        return EventDescriptorCollection.Empty;
-    }
 
-    public EventDescriptorCollection GetEvents()
-    {
-        if (this._parent != null)
+        public EventDescriptorCollection GetEvents(Attribute[] attributes)
         {
-            return this._parent.GetEvents();
+            if (this._parent != null)
+            {
+                return this._parent.GetEvents(attributes);
+            }
+            return EventDescriptorCollection.Empty;
         }
-        return EventDescriptorCollection.Empty;
-    }
 
-    public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
-    {
-        return this._properties;
-    }
+        public EventDescriptorCollection GetEvents()
+        {
+            if (this._parent != null)
+            {
+                return this._parent.GetEvents();
+            }
+            return EventDescriptorCollection.Empty;
+        }
 
-    public PropertyDescriptorCollection GetProperties()
-    {
-        return this._properties;
-    }
+        public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+        {
+            return this._properties;
+        }
 
-    public object GetPropertyOwner(PropertyDescriptor pd)
-    {
-        return this._dt;
+        public PropertyDescriptorCollection GetProperties()
+        {
+            return this._properties;
+        }
+
+        public object GetPropertyOwner(PropertyDescriptor pd)
+        {
+            return this._dt;
 
 
+        }
     }
 }

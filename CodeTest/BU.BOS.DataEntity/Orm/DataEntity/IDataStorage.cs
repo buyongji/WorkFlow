@@ -10,7 +10,7 @@ namespace BU.BOS.Orm.DataEntity
   public  interface IDataStorage
   {
       #region Methods
-      object GetLocalValue();
+      object GetLocalValue(DynamicProperty property);
       IDataStorage MemberClone();
       void SetLocalValue(DynamicProperty property,object value);
       #endregion
