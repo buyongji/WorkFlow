@@ -143,6 +143,10 @@ namespace BU.BOS.Orm.DataEntity
         {
             return this._dt.CustomTypeDescriptor.GetClassName();
         }
+        string ICustomTypeDescriptor.GetComponentName()
+        {
+            return this._dt.CustomTypeDescriptor.GetComponentName();
+        }
         TypeConverter ICustomTypeDescriptor.GetConverter()
         {
             return this._dt.CustomTypeDescriptor.GetConverter();

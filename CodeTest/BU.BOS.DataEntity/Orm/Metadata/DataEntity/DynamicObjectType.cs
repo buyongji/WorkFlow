@@ -214,8 +214,49 @@ namespace BU.BOS.Orm.Metadata.DataEntity
         public DynamicObjectType(string name,DynamicObjectType baseType=null,Type dataEntityType=null,DataEntityTypeFlag flag=0,params object[] attributes)
         {
             this._flag = flag;
-            this._baseType = 
+            this._baseType = baseType;
+
+            this._attributes = attributes;
+            this.ClrType = dataEntityType;
         }
+        private void AddProperties(params DynamicProperty[] properties)
+        {
+            this._properties.AddRange(properties);
+            this._cachedHashcode = null;
+        }
+        private static DynamicObject ConvertToDynamicObject(object dataEntity)
+        {
+            DynamicObject obj2 = dataEntity as DynamicObject;
+            if (obj2 != null)
+            {
+                return obj2;
+            }
+            if (dataEntity == null)
+            {
+                throw new ORMArgInvalidException("??????","转换对象为动态实体失败，要转换的对象不能为空！");
+            }
+            throw new ORMArgInvalidException("??????", string.Format("转换对象{0}为动态实体失败，该对象必须是DynamicObject类型！", dataEntity.ToString()));
+        }
+        private int CreateHashCode()
+        {
+            int num = (((this._name == null) ? 0 : this._name.GetHashCode()) ^ this.ClrType.MetadataToken) ^ this._flag.GetHashCode();
+            if (this._baseType != null)
+            {
+                num ^= this._baseType.GetHashCode();
+            }
+            if (this._primaryKey != null)
+            {
+                num ^= this._primaryKey.GetHashCode();
+            }
+            if (this._interfaces != null)
+            {
+                num ^= OrmUtils.GetListHashCode<DynamicObjectType>(this._interfaces);
+            }
+            return num;
+        }
+
+
+
         #endregion
 
     }

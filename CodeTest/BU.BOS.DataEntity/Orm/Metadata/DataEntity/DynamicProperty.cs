@@ -179,51 +179,51 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             this.Initialize();
         }
 
-        //private void BuildGetSetCallback(out GetValueCallbackDelegate getValueHandle, out SetValueCallbackDelegate setValueHandle)
-        //{
-        //    List<DynamicPropertyGetValueCallback> handlers = new List<DynamicPropertyGetValueCallback>(2);
-        //    this.InitializeGetValueCallback(handlers);
-        //    List<DynamicPropertySetValueCallback> list2 = new List<DynamicPropertySetValueCallback>(4);
-        //    this.InitializeSetValueCallback(list2);
-        //    object[] customAttributes = base.GetCustomAttributes(typeof(GetSetValueCallbackAttribute), true);
-        //    if ((customAttributes != null) && (customAttributes.Length > 0))
-        //    {
-        //        foreach (GetSetValueCallbackAttribute attribute in customAttributes)
-        //        {
-        //            attribute.BuildGetCallbackHandlers(handlers);
-        //            attribute.BuildSetCallbackHandlers(list2);
-        //        }
-        //    }
-        //    if (handlers.Count == 0)
-        //    {
-        //        throw new ORMArgInvalidException("??????", string.Format(ResManager.LoadKDString("动态属性{0}初始化失败，错误的重载造成没有任何取值策略!", "014009000001724", SubSystemType.SL, new object[0]), this.Name));
-        //    }
-        //    handlers.Sort(new Comparison<DynamicPropertyGetValueCallback>(DynamicProperty.SortGetCallback));
-        //    for (int i = 0; i < (handlers.Count - 1); i++)
-        //    {
-        //        handlers[i].SetNextCallback(handlers[i + 1]);
-        //    }
-        //    DynamicPropertyGetValueCallback local1 = handlers[0];
-        //    getValueHandle = new GetValueCallbackDelegate(local1.GetValue);
-        //    if (this._isReadonly)
-        //    {
-        //        setValueHandle = null;
-        //    }
-        //    else
-        //    {
-        //        if (list2.Count == 0)
-        //        {
-        //            throw new ORMArgInvalidException("??????", string.Format(ResManager.LoadKDString("动态属性{0}初始化失败，错误的重载造成没有任何设置值策略!", "014009000001725", SubSystemType.SL, new object[0]), this.Name));
-        //        }
-        //        list2.Sort(new Comparison<DynamicPropertySetValueCallback>(DynamicProperty.SortSetCallback));
-        //        for (int j = 0; j < (list2.Count - 1); j++)
-        //        {
-        //            list2[j].SetNextCallback(list2[j + 1]);
-        //        }
-        //        DynamicPropertySetValueCallback local2 = list2[0];
-        //        setValueHandle = new SetValueCallbackDelegate(local2.SetValue);
-        //    }
-        //}
+        private void BuildGetSetCallback(out GetValueCallbackDelegate getValueHandle, out SetValueCallbackDelegate setValueHandle)
+        {
+            List<DynamicPropertyGetValueCallback> handlers = new List<DynamicPropertyGetValueCallback>(2);
+            this.InitializeGetValueCallback(handlers);
+            List<DynamicPropertySetValueCallback> list2 = new List<DynamicPropertySetValueCallback>(4);
+            this.InitializeSetValueCallback(list2);
+            object[] customAttributes = base.GetCustomAttributes(typeof(GetSetValueCallbackAttribute), true);
+            if ((customAttributes != null) && (customAttributes.Length > 0))
+            {
+                foreach (GetSetValueCallbackAttribute attribute in customAttributes)
+                {
+                    attribute.BuildGetCallbackHandlers(handlers);
+                    attribute.BuildSetCallbackHandlers(list2);
+                }
+            }
+            if (handlers.Count == 0)
+            {
+                throw new ORMArgInvalidException("??????", string.Format("动态属性{0}初始化失败，错误的重载造成没有任何取值策略!", this.Name));
+            }
+            handlers.Sort(new Comparison<DynamicPropertyGetValueCallback>(DynamicProperty.SortGetCallback));
+            for (int i = 0; i < (handlers.Count - 1); i++)
+            {
+                handlers[i].SetNextCallback(handlers[i + 1]);
+            }
+            DynamicPropertyGetValueCallback local1 = handlers[0];
+            getValueHandle = new GetValueCallbackDelegate(local1.GetValue);
+            if (this._isReadonly)
+            {
+                setValueHandle = null;
+            }
+            else
+            {
+                if (list2.Count == 0)
+                {
+                    throw new ORMArgInvalidException("??????", string.Format("动态属性{0}初始化失败，错误的重载造成没有任何设置值策略!", this.Name));
+                }
+                list2.Sort(new Comparison<DynamicPropertySetValueCallback>(DynamicProperty.SortSetCallback));
+                for (int j = 0; j < (list2.Count - 1); j++)
+                {
+                    list2[j].SetNextCallback(list2[j + 1]);
+                }
+                DynamicPropertySetValueCallback local2 = list2[0];
+                setValueHandle = new SetValueCallbackDelegate(local2.SetValue);
+            }
+        }
 
         protected internal virtual DynamicProperty Clone()
         {
@@ -249,10 +249,10 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             return ((this._name.GetHashCode() ^ this._propertyType.MetadataToken) ^ this._ordinal);
         }
 
-        //protected internal virtual PropertyDescriptor CreatePropertyDescriptor()
-        //{
-        //    return new DataEntityPropertyDescriptor(this);
-        //}
+        protected internal virtual PropertyDescriptor CreatePropertyDescriptor()
+        {
+            return new DataEntityPropertyDescriptor(this);
+        }
 
         internal virtual bool Equals(DynamicProperty obj)
         {
@@ -269,74 +269,74 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             return flag;
         }
 
-        //internal DynamicProperty FindTrueProperty(DynamicObject dataEntity)
-        //{
-        //    DynamicProperty property;
-        //    if (dataEntity == null)
-        //    {
-        //        throw new ORMArgInvalidException("??????", string.Format(ResManager.LoadKDString("寻找实体上{0}对应的属性描述符失败，实体不能为空！", "014009000001726", SubSystemType.SL, new object[0]), this.Name));
-        //    }
-        //    DynamicObjectType dynamicObjectType = dataEntity.DynamicObjectType;
-        //    if (object.ReferenceEquals(this._reflectedType, dynamicObjectType))
-        //    {
-        //        return this;
-        //    }
-        //    if (dynamicObjectType.Properties.TryFind(this, this._lastIndex, out property))
-        //    {
-        //        this._lastIndex = property._ordinal;
-        //        return property;
-        //    }
-        //    StringBuilder builder = new StringBuilder();
-        //    foreach (DynamicProperty property2 in dataEntity.DynamicObjectType.Properties)
-        //    {
-        //        builder.Append(property2.Name).Append(" ");
-        //    }
-        //    throw new ORMArgInvalidException("??????", string.Format(ResManager.LoadKDString("寻找实体上{0}对应的属性描述符失败，实体不存在此属性！", "002025030001447", SubSystemType.BOS, new object[0]), this.Name) + string.Format("[EntityType：{0} Propeyties:{1}]", dataEntity.DynamicObjectType.Name, builder.ToString()));
-        //}
+        internal DynamicProperty FindTrueProperty(DynamicObject dataEntity)
+        {
+            DynamicProperty property;
+            if (dataEntity == null)
+            {
+                throw new ORMArgInvalidException("??????", string.Format("寻找实体上{0}对应的属性描述符失败，实体不能为空！", this.Name));
+            }
+            DynamicObjectType dynamicObjectType = dataEntity.DynamicObjectType;
+            if (object.ReferenceEquals(this._reflectedType, dynamicObjectType))
+            {
+                return this;
+            }
+            if (dynamicObjectType.Properties.TryFind(this, this._lastIndex, out property))
+            {
+                this._lastIndex = property._ordinal;
+                return property;
+            }
+            StringBuilder builder = new StringBuilder();
+            foreach (DynamicProperty property2 in dataEntity.DynamicObjectType.Properties)
+            {
+                builder.Append(property2.Name).Append(" ");
+            }
+            throw new ORMArgInvalidException("??????", string.Format("寻找实体上{0}对应的属性描述符失败，实体不存在此属性！", this.Name) + string.Format("[EntityType：{0} Propeyties:{1}]", dataEntity.DynamicObjectType.Name, builder.ToString()));
+        }
 
-        //public override object[] GetCustomAttributes(bool inherit)
-        //{
-        //    if (this._attributes == null)
-        //    {
-        //        return DynamicMetadata.EmptyAttributes;
-        //    }
-        //    return this._attributes;
-        //}
+        public override object[] GetCustomAttributes(bool inherit)
+        {
+            if (this._attributes == null)
+            {
+                return DynamicMetadata.EmptyAttributes;
+            }
+            return this._attributes;
+        }
 
-        //private void GetDefaultGetSetValueCallback(out GetValueCallbackDelegate getValueHandle, out SetValueCallbackDelegate setValueHandle)
-        //{
-        //    Func<TypeAndReadOnly, Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate>> valueFactory = null;
-        //    if (base.GetType() == typeof(DynamicSimpleProperty))
-        //    {
-        //        if (this._isReadonly)
-        //        {
-        //            getValueHandle = new GetValueCallbackDelegate(DefaultGetSetValue.GetValue);
-        //            setValueHandle = null;
-        //        }
-        //        else
-        //        {
-        //            getValueHandle = new GetValueCallbackDelegate(DefaultGetSetValue.GetValue);
-        //            setValueHandle = new SetValueCallbackDelegate(DefaultGetSetValue.SetValue);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        TypeAndReadOnly key = new TypeAndReadOnly(base.GetType(), this._isReadonly);
-        //        if (valueFactory == null)
-        //        {
-        //            valueFactory = delegate(TypeAndReadOnly k)
-        //            {
-        //                GetValueCallbackDelegate delegate2;
-        //                SetValueCallbackDelegate delegate3;
-        //                this.BuildGetSetCallback(out delegate2, out delegate3);
-        //                return new Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate>(delegate2, delegate3);
-        //            };
-        //        }
-        //        Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate> orAdd = _defaultHandleCache.GetOrAdd(key, valueFactory);
-        //        getValueHandle = orAdd.Item1;
-        //        setValueHandle = orAdd.Item2;
-        //    }
-        //}
+        private void GetDefaultGetSetValueCallback(out GetValueCallbackDelegate getValueHandle, out SetValueCallbackDelegate setValueHandle)
+        {
+            Func<TypeAndReadOnly, Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate>> valueFactory = null;
+            if (base.GetType() == typeof(DynamicSimpleProperty))
+            {
+                if (this._isReadonly)
+                {
+                    getValueHandle = new GetValueCallbackDelegate(DefaultGetSetValue.GetValue);
+                    setValueHandle = null;
+                }
+                else
+                {
+                    getValueHandle = new GetValueCallbackDelegate(DefaultGetSetValue.GetValue);
+                    setValueHandle = new SetValueCallbackDelegate(DefaultGetSetValue.SetValue);
+                }
+            }
+            else
+            {
+                TypeAndReadOnly key = new TypeAndReadOnly(base.GetType(), this._isReadonly);
+                if (valueFactory == null)
+                {
+                    valueFactory = delegate(TypeAndReadOnly k)
+                    {
+                        GetValueCallbackDelegate delegate2;
+                        SetValueCallbackDelegate delegate3;
+                        this.BuildGetSetCallback(out delegate2, out delegate3);
+                        return new Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate>(delegate2, delegate3);
+                    };
+                }
+                Tuple<GetValueCallbackDelegate, SetValueCallbackDelegate> orAdd = _defaultHandleCache.GetOrAdd(key, valueFactory);
+                getValueHandle = orAdd.Item1;
+                setValueHandle = orAdd.Item2;
+            }
+        }
 
         public override int GetHashCode()
         {
@@ -347,17 +347,17 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             return this._cachedHashcode.Value;
         }
 
-        //public object GetValue(DynamicObject dataEntity)
-        //{
-        //    DynamicProperty property = this.FindTrueProperty(dataEntity);
-        //    return property._getValueHandle(dataEntity, property);
-        //}
+        public object GetValue(DynamicObject dataEntity)
+        {
+            DynamicProperty property = this.FindTrueProperty(dataEntity);
+            return property._getValueHandle(dataEntity, property);
+        }
 
-        //public T GetValue<T>(DynamicObject dataEntity)
-        //{
-        //    DynamicProperty property = this.FindTrueProperty(dataEntity);
-        //    return (T)property._getValueHandle(dataEntity, property);
-        //}
+        public T GetValue<T>(DynamicObject dataEntity)
+        {
+            DynamicProperty property = this.FindTrueProperty(dataEntity);
+            return (T)property._getValueHandle(dataEntity, property);
+        }
 
         public object GetValueFast(DynamicObject dataEntity)
         {
@@ -380,19 +380,19 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             }
         }
 
-        //protected virtual void InitializeGetValueCallback(IList<DynamicPropertyGetValueCallback> handlers)
-        //{
-        //    handlers.Add(new LocalValueGetValueCallback());
-        //    handlers.Add(new DefaultValueGetValueCallback());
-        //}
+        protected virtual void InitializeGetValueCallback(IList<DynamicPropertyGetValueCallback> handlers)
+        {
+            handlers.Add(new LocalValueGetValueCallback());
+            handlers.Add(new DefaultValueGetValueCallback());
+        }
 
-        //protected virtual void InitializeSetValueCallback(IList<DynamicPropertySetValueCallback> handlers)
-        //{
-        //    handlers.Add(new RaiseChangingEventSetValueCallback());
-        //    handlers.Add(new ChangeTypeSetValueCallback());
-        //    handlers.Add(new LocalValueSetValueCallback());
-        //    handlers.Add(new RaiseChangedEventSetValueCallback());
-        //}
+        protected virtual void InitializeSetValueCallback(IList<DynamicPropertySetValueCallback> handlers)
+        {
+            handlers.Add(new RaiseChangingEventSetValueCallback());
+            handlers.Add(new ChangeTypeSetValueCallback());
+            handlers.Add(new LocalValueSetValueCallback());
+            handlers.Add(new RaiseChangedEventSetValueCallback());
+        }
 
         private bool InnerHasDefaultValue()
         {
@@ -438,17 +438,17 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             return this.GetValueFast(obj2);
         }
 
-        //void IDataEntityProperty.SetValue(object dataEntity, object value)
-        //{
-        //    DynamicObject obj2 = ConvertToDynamicObject(dataEntity);
-        //    this.SetValue(obj2, value);
-        //}
+        void IDataEntityProperty.SetValue(object dataEntity, object value)
+        {
+            DynamicObject obj2 = ConvertToDynamicObject(dataEntity);
+            this.SetValue(obj2, value);
+        }
 
-        //void IDataEntityProperty.SetValueFast(object dataEntity, object value)
-        //{
-        //    DynamicObject obj2 = ConvertToDynamicObject(dataEntity);
-        //    this.SetValueFast(obj2, value);
-        //}
+        void IDataEntityProperty.SetValueFast(object dataEntity, object value)
+        {
+            DynamicObject obj2 = ConvertToDynamicObject(dataEntity);
+            this.SetValueFast(obj2, value);
+        }
 
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
@@ -456,10 +456,10 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             this.Initialize();
         }
 
-        //public void ResetValue(DynamicObject dataEntity)
-        //{
-        //    this.FindTrueProperty(dataEntity).ResetValuePrivate(dataEntity);
-        //}
+        public void ResetValue(DynamicObject dataEntity)
+        {
+            this.FindTrueProperty(dataEntity).ResetValuePrivate(dataEntity);
+        }
 
         private void ResetValuePrivate(DynamicObject dataEntity)
         {
@@ -472,39 +472,39 @@ namespace BU.BOS.Orm.Metadata.DataEntity
             this._setValueHandle(dataEntity, this, oldValue, ref newValue);
         }
 
-        //public void SetValue(DynamicObject dataEntity, object newValue)
-        //{
-        //    this.FindTrueProperty(dataEntity).SetValuePrivate(dataEntity, newValue);
-        //}
+        public void SetValue(DynamicObject dataEntity, object newValue)
+        {
+            this.FindTrueProperty(dataEntity).SetValuePrivate(dataEntity, newValue);
+        }
 
-        //public void SetValueFast(DynamicObject dataEntity, object newValue)
-        //{
-        //    this.SetValuePrivate(dataEntity, newValue);
-        //}
+        public void SetValueFast(DynamicObject dataEntity, object newValue)
+        {
+            this.SetValuePrivate(dataEntity, newValue);
+        }
 
-        //private void SetValuePrivate(DynamicObject dataEntity, object newValue)
-        //{
-        //    if (this._isReadonly)
-        //    {
-        //        throw new ReadOnlyException();
-        //    }
-        //    object oldValue = null;
-        //    if (!dataEntity.Initializing)
-        //    {
-        //        oldValue = this._getValueHandle(dataEntity, this);
-        //    }
-        //    this._setValueHandle(dataEntity, this, oldValue, ref newValue);
-        //}
+        private void SetValuePrivate(DynamicObject dataEntity, object newValue)
+        {
+            if (this._isReadonly)
+            {
+                throw new ReadOnlyException();
+            }
+            object oldValue = null;
+            if (!dataEntity.Initializing)
+            {
+                oldValue = this._getValueHandle(dataEntity, this);
+            }
+            this._setValueHandle(dataEntity, this, oldValue, ref newValue);
+        }
 
-        //private static int SortGetCallback(DynamicPropertyGetValueCallback a, DynamicPropertyGetValueCallback b)
-        //{
-        //    return a.Priority.CompareTo(b.Priority);
-        //}
+        private static int SortGetCallback(DynamicPropertyGetValueCallback a, DynamicPropertyGetValueCallback b)
+        {
+            return a.Priority.CompareTo(b.Priority);
+        }
 
-        //private static int SortSetCallback(DynamicPropertySetValueCallback a, DynamicPropertySetValueCallback b)
-        //{
-        //    return a.Priority.CompareTo(b.Priority);
-        //}
+        private static int SortSetCallback(DynamicPropertySetValueCallback a, DynamicPropertySetValueCallback b)
+        {
+            return a.Priority.CompareTo(b.Priority);
+        }
 
         #endregion
 

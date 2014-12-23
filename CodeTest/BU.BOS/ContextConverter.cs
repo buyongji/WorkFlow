@@ -10,9 +10,13 @@ namespace BU.BOS
     public class ContextConverter : JsonConverter
     {
         #region Methods
+        public ContextConverter()
+        {
+
+        }
         public override bool CanConvert(Type objectType)
         {
-            return ()
+            return true;
         }
         #endregion
     }

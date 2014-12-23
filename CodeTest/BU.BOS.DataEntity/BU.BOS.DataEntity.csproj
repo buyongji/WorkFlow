@@ -32,7 +32,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +42,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Generic\EmptyList.cs" />
+    <Compile Include="Collections\Generic\ForWriteList.cs" />
+    <Compile Include="Collections\Generic\ForWriteListDebugView.cs" />
+    <Compile Include="Collections\Generic\IForWriteList.cs" />
     <Compile Include="Collections\Generic\IKeyedCollectionBase.cs" />
     <Compile Include="Collections\Generic\KeyedCollectionBase.cs" />
+    <Compile Include="Collections\Generic\ListEnumerator.cs" />
+    <Compile Include="Collections\Generic\OneItemList.cs" />
+    <Compile Include="Orm\DataEntity\BoolDataEntityState.cs" />
+    <Compile Include="Orm\DataEntity\CloneUtils.cs" />
     <Compile Include="Orm\DataEntity\DataEntityBase.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\ChangeTypeSetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DataEntityPropertyDescriptor.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DefaultValueGetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DynamicPropertyGetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DynamicPropertySetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\GetSetValueCallbackAttribute.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\GetValueCallbackDelegate.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\LocalValueGetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\LocalValueSetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\MetaDynamic.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\DataEntityPropertyChangedEventArgs.cs" />
+    <Compile Include="Orm\DataEntity\DataEntityState.cs" />
     <Compile Include="Orm\DataEntity\DbIgnoreAttribute.cs" />
     <Compile Include="Orm\DataEntity\DynamicObject.cs" />
     <Compile Include="Orm\DataEntity\IDataEntityBase.cs" />
     <Compile Include="Orm\DataEntity\IDataStorage.cs" />
     <Compile Include="Orm\DataEntity\ILocaleValue.cs" />
+    <Compile Include="Orm\DataEntity\IObjectWithParent.cs" />
     <Compile Include="Orm\DataEntity\PkSnapshot.cs" />
     <Compile Include="Orm\DataEntity\PkSnapshotSet.cs" />
     <Compile Include="Orm\Exceptions\ORMArgInvalidException.cs" />
@@ -57,7 +80,6 @@
     <Compile Include="Orm\Metadata\DataEntity\DataEntityCacheType.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DataEntityTypeFlag.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DbIgnoreAttribute.cs" />
-    <Compile Include="Orm\Metadata\DataEntity\DbIgnoreAttribute_2.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicMetadata.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicObjectType.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DynamicObjectTypeDescriptor.cs" />
@@ -69,7 +91,22 @@
     <Compile Include="Orm\Metadata\DataEntity\IDataEntityType.cs" />
     <Compile Include="Orm\Metadata\DataEntity\IMetadata.cs" />
     <Compile Include="Orm\Metadata\DataEntity\ISimpleProperty.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\RaiseChangedEventSetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\RaiseChangingEventSetValueCallback.cs" />
+    <Compile Include="Orm\Metadata\DataEntity\SetValueCallbackDelegate.cs" />
+    <Compile Include="Orm\OrmUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\ImageDirectory.cs" />
+    <Compile Include="Resource\ISLLanguageResourceProxy.cs" />
+    <Compile Include="Resource\ResManager.cs" />
+    <Compile Include="Resource\SubSystemType.cs" />
+    <Compile Include="Serialization\DcxmlBinder.cs" />
+    <Compile Include="Serialization\DcxmlSerializer.cs" />
+    <Compile Include="Serialization\DcxmlSerializerReadImplement.cs" />
+    <Compile Include="Serialization\DcxmlSerializerWriteImplement.cs" />
+    <Compile Include="Serialization\ListDcxmlBinder.cs" />
+    <Compile Include="Serialization\SerializationUtils.cs" />
+    <Compile Include="TypesContainer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -47,10 +47,19 @@
     <Compile Include="ContextConverter.cs" />
     <Compile Include="Globalization\CultureManager.cs" />
     <Compile Include="Globalization\UserContext.cs" />
+    <Compile Include="JSON\JSONObject.cs" />
     <Compile Include="LanguageInfo.cs" />
     <Compile Include="OrganizationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CultureInfoUtils.cs" />
+    <Compile Include="Util\DBReaderUtils.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BU.BOS.DataEntity\BU.BOS.DataEntity.csproj">
+      <Project>{db139494-a07f-47d2-8511-3bc72940adaa}</Project>
+      <Name>BU.BOS.DataEntity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

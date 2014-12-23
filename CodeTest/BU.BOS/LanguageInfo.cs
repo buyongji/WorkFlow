@@ -44,5 +44,18 @@ namespace BU.BOS
         public string LocaleName { get; set; }
 
        #endregion
+
+       #region Methods
+        public LanguageInfo()
+        {
+
+        }
+        public LanguageInfo(int iId,string strName)
+        {
+            this.LocaleId = iId;
+            this.LocaleName = strName;
+           
+        }
+       #endregion
    }
 }
