@@ -158,15 +158,16 @@ namespace BU.BOS.Util
         {
             if (value is string)
             {
-                switch (((string)value))
+                string str = (string)value;
+                if (str == string.Empty || str == "0")
                 {
-                    case string.Empty:
-                    case "0":
-                        return false;
-                    case "1":
-                    case "-1":
-                        return true;
+                    return false;
                 }
+                else if (str == "1" || str == "-1")
+                {
+                    return true;
+                }
+
             }
             return Convert.ToBoolean(value);
         }
