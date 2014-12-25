@@ -53,6 +53,8 @@
     <Compile Include="Orm\DataEntity\BoolDataEntityState.cs" />
     <Compile Include="Orm\DataEntity\CloneUtils.cs" />
     <Compile Include="Orm\DataEntity\DataEntityBase.cs" />
+    <Compile Include="Orm\DataEntity\DataEntityWalkerEventArgs.cs" />
+    <Compile Include="Orm\DataEntity\RefrenceObjectAttribute.cs" />
     <Compile Include="Orm\Metadata\DataEntity\ChangeTypeSetValueCallback.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DataEntityPropertyDescriptor.cs" />
     <Compile Include="Orm\Metadata\DataEntity\DefaultValueGetValueCallback.cs" />

@@ -117,7 +117,7 @@ namespace BU.BOS.Util
             CultureInfo info = new CultureInfo(name);
             return info.NativeName;
         }
-        public static 
+        //public static 
 
  
 
