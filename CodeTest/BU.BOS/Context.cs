@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace BU.BOS
 {
     [Serializable]
+    [KnownType(typeof(List<LanguageInfo>))]
     public class Context : ISerializable, IDeserializationCallback, ICloneable
     {
 
@@ -24,17 +25,14 @@ namespace BU.BOS
         public string CharacterSet;
         [NonSerialized]
         private CultureInfo ci;
-        //private KDTimeZone currentUserTimeZone;
+        private KDTimeZone currentUserTimeZone;
         private string dbId;
         public readonly CultureInfo DefaultLocale;
         [NonSerialized]
         private CultureInfo logLocale;
         private Context queryDBContext;
-
-
-
-        //public readonly CultureInfo DefaultLocale;
-        //public readonly string CharacterSet;
+        public readonly CultureInfo DefaultLocale;
+        public readonly string CharacterSet;
 
         #endregion
 
@@ -43,7 +41,7 @@ namespace BU.BOS
 
         public string CallStack { get; set; }
 
-        //public ClientType ClientType { get; set; }
+        public ClientType ClientType { get; set; }
 
         public string ComputerName { get; set; }
 
@@ -93,9 +91,9 @@ namespace BU.BOS
         //    }
         //}
 
-        //public DataBaseCategory DatabaseCategory { get; set; }
+        public DataBaseCategory DatabaseCategory { get; set; }
 
-        //public DatabaseType DatabaseType { get; set; }
+        public DatabaseType DatabaseType { get; set; }
 
         public string DataCenterName { get; set; }
 
@@ -131,7 +129,7 @@ namespace BU.BOS
 
         public bool IsStartTimeZoneTransfer { get; set; }
 
-        //public LightAppContext LightApp { get; set; }
+        public LightAppContext LightApp { get; set; }
 
         public string LoginName { get; set; }
 
@@ -153,13 +151,13 @@ namespace BU.BOS
 
         public string QueryDBId { get; set; }
 
-        //public Region Region { get; set; }
+        public Region Region { get; set; }
 
         public string Salt { get; set; }
 
         public string ServerUrl { get; set; }
 
-        //public WebType ServiceType { get; set; }
+        public WebType ServiceType { get; set; }
 
         public string SessionId { get; set; }
 
@@ -199,11 +197,11 @@ namespace BU.BOS
             }
         }
 
-        //public KDTimeZone SystemTimeZone { get; set; }
+        public KDTimeZone SystemTimeZone { get; set; }
 
         public string TenantId { get; set; }
 
-        //public IsolationLevel TransIsolationLevel { get; set; }
+        public IsolationLevel TransIsolationLevel { get; set; }
 
         public List<int> UseLanguageIds
         {
@@ -241,7 +239,7 @@ namespace BU.BOS
             }
         }
 
-        //public AuthenticationType UserAuthenticationMethod { get; set; }
+        public AuthenticationType UserAuthenticationMethod { get; set; }
 
         public string UserEmail { get; set; }
 
@@ -260,7 +258,7 @@ namespace BU.BOS
             }
         }
 
-        //public LoginType UserLoginType { get; set; }
+        public LoginType UserLoginType { get; set; }
 
         public string UserName { get; set; }
 
@@ -270,9 +268,9 @@ namespace BU.BOS
 
         public string UserTransactionId { get; set; }
 
-        //public X509Certificate UserX509Certificate { get; set; }
+        public X509Certificate UserX509Certificate { get; set; }
 
-        //public KDOAuthInfo WeiboAuthInfo { get; set; }
+        public KDOAuthInfo WeiboAuthInfo { get; set; }
 
         #endregion
 
@@ -281,18 +279,18 @@ namespace BU.BOS
         {
             return base.MemberwiseClone();
         }
-        public void GetObjectData(SerializationInfo info,StreamingContext context)
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("UserLocale",this.UserLocale.Name);
-            if(this.UserLocale!=null)
+            info.AddValue("UserLocale", this.UserLocale.Name);
+            if (this.UserLocale != null)
             {
                 info.AddValue("LogLocale", this.LogLocale.Name);
             }
             else
             {
-                info.AddValue("LogLocale","");
+                info.AddValue("LogLocale", "");
             }
-            info.AddValue("DBid",this.DBId);
+            info.AddValue("DBid", this.DBId);
             //info.AddValue("DatabaseType", (int)this.DatabaseType);
             info.AddValue("IsMultiOrg", this.IsMultiOrg);
             info.AddValue("UseLanguages", this.UseLanguages);
